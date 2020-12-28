@@ -48,7 +48,7 @@ if __name__ == "__main__":
         model = load_own_model(PATH + WEIGHTS)
         pred_img = load_img(uploaded_img, SHAPE)
         pred = CLASS_DICT[np.argmax(model.predict(pred_img))]
-        result.success("Result: " + pred)
+        result.success("Prediction result: " + pred)
 
 
 
