@@ -8,3 +8,13 @@ end to end DL project with image recognition module
 
 ## Run
 - in the terminal, run command `streamlit run app.py` 
+
+## Deployment
+
+In repo folder:
+
+`heroku login
+git add .
+git commit -m "Enter your message here"
+git push heroku master
+heroku ps:scale web=1`
