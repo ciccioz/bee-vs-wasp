@@ -13,8 +13,8 @@ end to end DL project with image recognition module
 
 In repo folder:
 
-`heroku login\  
-git add .\
-git commit -m "Enter your message here"\
-git push heroku master\
-heroku ps:scale web=1\`
+```heroku login
+git add .
+git commit -m "Enter your message here"
+git push heroku master
+heroku ps:scale web=1```
