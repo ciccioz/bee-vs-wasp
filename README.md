@@ -3,7 +3,7 @@ end to end DL project with image recognition module
 
 - Data taken from: https://www.kaggle.com/jerzydziewierz/bee-vs-wasp
 - First run: after data download, launch Python Notebook in order to get the correct data structure used as input for model training.
-- Training has been done using Xception model, model output saved in file `xception.h5`.
+- Training has been done using `mobilenetV2` model, model output saved in file `.h5` file.
 
 ## Run code before app
 - get data from this link: https://www.kaggle.com/jerzydziewierz/bee-vs-wasp
