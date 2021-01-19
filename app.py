@@ -1,9 +1,20 @@
 import numpy as np
-from tensorflow.keras.models import load_model
 # from tensorflow.keras.preprocessing.image import img_to_array
-from tensorflow.keras.preprocessing import image
 import streamlit as st
-from functions import load_img, create_model
+# from functions import load_img, create_model
+from tensorflow.keras.models import load_model
+
+##
+from PIL import Image
+from tensorflow.keras.preprocessing import image
+##
+
+def load_img(input_image, shape):
+    img = Image.open(input_image).convert('RGB')
+    img = img.resize((shape, shape))
+    img = image.img_to_array(img)
+    return np.reshape(img, [1, shape, shape, 3])/255
+
 
 # from keras import layers
 # from keras import models
@@ -17,29 +28,30 @@ from functions import load_img, create_model
 # from tensorflow.keras.applications import Xception
 
 
-
 PATH = "model_weights/"
-WEIGHTS = 'xception_checkpoint.h5'
-SHAPE = 300
+WEIGHTS = 'mobilenetv2_epochs_5_shape_224.h5'
+SHAPE = 224
 CLASS_DICT = {
-    0: 'bee',
-    1: 'insect',
-    2: 'other',
-    3: 'wasp'
+    0: 'Bee',
+    1: 'Insect',
+    2: 'Other object',
+    3: 'Wasp'
 }
 
-@st.cache(allow_output_mutation = True)
+# @st.cache(allow_output_mutation = True)
 def load_own_model(weights_path):
-    # return load_model(weights_path)
-    model = create_model(shape = SHAPE)
-    model.load_weights(weights_path)
-    return model
+    # from keras.models import load_model
+    return load_model(weights_path)
+    # model = create_model(shape = SHAPE)
+    # model.load_weights(weights_path)
+    # return model
 
 # Press the green button in the gutter to run the script.
 if __name__ == "__main__":
     result = st.empty()
-    uploaded_img = st.file_uploader(label = 'Upload your image:')
-    # uploaded_img = 'punture-vespe-1217.jpg'
+    st.title("Bee or Wasp?")
+    uploaded_img = st.file_uploader(label = '')
+    # uploaded_img = 'bee.jpg'
     
     if uploaded_img:
         bytes_data = uploaded_img.read()

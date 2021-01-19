@@ -14,9 +14,9 @@ def load_img(input_image, shape):
 
 def create_model(shape):   
     
-    from keras import layers
+    from keras.layers import AveragePooling2D, Dense, Flatten, Dropout
     # from keras import models
-    from keras import optimizers
+    from keras.optimizers import SGD
     # from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
     from tensorflow.keras import Model
     
@@ -27,15 +27,15 @@ def create_model(shape):
     model = Xception(input_shape = (shape, shape, 3), include_top = False, weights = 'imagenet')
 
     x = model.output
-    x = layers.AveragePooling2D(pool_size = (2, 2))(x)
-    x = layers.Dense(32, activation = 'relu')(x)
-    x = layers.Flatten()(x)
+    x = AveragePooling2D(pool_size = (2, 2))(x)
+    x = Dense(32, activation = 'relu')(x)
+    x = Flatten()(x)
     # spostato dopo Flatten
-    x = layers.Dropout(0.1)(x)
+    x = Dropout(0.1)(x)
     # a caso
-    x = layers.Dense(128)(x)
-    x = layers.Dense(4, activation = 'softmax', kernel_regularizer = l2(.0005))(x)
+    x = Dense(128)(x)
+    x = Dense(4, activation = 'softmax', kernel_regularizer = l2(.0005))(x)
     model = Model(inputs = model.inputs, outputs = x)
-    opt = optimizers.SGD(lr = 0.0001, momentum = .9)
+    opt = SGD(lr = 0.0001, momentum = .9)
     model.compile(loss = 'categorical_crossentropy', optimizer = opt, metrics = ['accuracy'])
     return model
